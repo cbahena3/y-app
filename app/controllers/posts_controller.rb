@@ -1,18 +1,17 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user
 
   def index
-    @posts = Post.all
+    @posts = current_user.posts
     render :index
   end
 
   def create
-    # current_user = user.id
-    # probably not logged in
     @post = Post.new(
-      user_id: params[:user_id],
-      text: params[:text],
-      image: params[:image]
-    )
+        user_id: current_user.id,
+        text: params[:text],
+        image: params[:image]
+      )
     @post.save
     render :show
   end
