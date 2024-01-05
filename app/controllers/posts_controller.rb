@@ -1,11 +1,13 @@
 class PostsController < ApplicationController
-  
+
   def index
     @posts = Post.all
     render :index
   end
 
   def create
+    # current_user = user.id
+    # probably not logged in
     @post = Post.new(
       user_id: params[:user_id],
       text: params[:text],
@@ -30,7 +32,7 @@ class PostsController < ApplicationController
     render :show
   end
 
-  def destroy 
+  def destroy
     @post = Post.find_by(id: params[:id])
     @post.destroy
     render json: {message: "Post destroyed successfully"}
